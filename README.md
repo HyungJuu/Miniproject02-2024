@@ -70,7 +70,7 @@
 ## 4일차 (24.05.20)
 - 라즈베리파이 IoT장비 설치  
     [x] 라즈베리파이 카메라  
-    [x] GPIO HAT  
+    [x] GPIO HAT   
     [x] 브레드보드와 연결  
     [ ] DHT11 센서  
     [x] RGB LED 모듈  
@@ -87,8 +87,23 @@
         - VCC : 5V 연결  
         - S : GPI018 연결  
 
-## 6일차 (24.05.22)
-- 네트워크 대공사
-    - 개인공유기, PC, 라즈베리파이
+## 6, 7일차 (24.05.22~23)
+- 네트워크 대공사  
+    [x] 개인공유기, PC, 라즈베리파이
 
 - 스마트홈 연동 클래스 미니프로젝트
+    - 온습도 센서, RGB LED
+    - RPi <--> Windows 통신(MQTT)
+    - WPF 모니터링 앱
+
+- IoT 기기간 통신방법
+    - Modbus : 시리얼통신으로 데이터 전송(완전 구식)
+    - OPC UA : Modbus통신의 불편한 점을 개선한 방식(아주 복잡)
+    - **MQTT** : 가장 편리! AWS IoT, Azure IoT 클라우드 산업계표준으로 사용
+
+- MQTT 통신  
+    [x] Mosquitto Broker 설치
+        - mosquitto.conf : listener 1883 0.0.0.0, allow_anonymouse true
+        - 방화벽 인바운드 열기
+    - RPi : paho-mqtt 패키지 설치, 송신(publisher)
+    - Win : MQTT.NET Nuget 패키지 설치, 수신(subcriber)

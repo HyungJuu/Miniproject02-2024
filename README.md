@@ -54,42 +54,42 @@
 
 - 라즈베리파이 셋팅
     1. RPi 기본 구성 : RPi + MicroSD + Power
-    2. RPi 기본 셋팅  
-        [x] 최신 업그레이드  
-        [x] 한글화  
-        [x] 키보드 변경  
-        [x] 화면 사이즈 변경 (RealVNC)  
-        [x] Pi Apps 앱설치 도우미 앱  
-        [x] Github Desktop, VS Code  
-        [x] 네트워크 확인  
-        - RealVNC Server 자동실행 설정
+    2. RPi 기본 셋팅
+        - [x] 최신 업그레이드
+        - [x] 한글화
+        - [x] 키보드 변경
+        - [x] 화면 사이즈 변경 (RealVNC)
+        - [x] Pi Apps 앱설치 도우미 앱
+        - [x] Github Desktop, VS Code
+        - [x] 네트워크 확인
+        - [ ] RealVNC Server 자동실행 설정 &rarr; 할필요없음
 
 - 스마트홈 연동 클래스 미니프로젝트
     - 라즈베리파이 셋팅
 
 ## 4일차 (24.05.20)
-- 라즈베리파이 IoT장비 설치  
-    [x] 라즈베리파이 카메라  
-    [x] GPIO HAT   
-    [x] 브레드보드와 연결  
-    [ ] DHT11 센서  
-    [x] RGB LED 모듈  
-        - V : 5V 연결  
-        - R : GPI04 연결  
-        - B : GPI05 연결  
-        - G : GPI06 연결  
-    [-] 서브모터
+- 라즈베리파이 IoT장비 설치
+    - [x] 라즈베리파이 카메라
+    - [x] GPIO HAT 
+    - [x] 브레드보드와 연결
+    - [ ] DHT11 센서
+    - [x] RGB LED 모듈
+        - V : 5V 연결
+        - R : GPI04 연결
+        - B : GPI05 연결
+        - G : GPI06 연결
+    - [ ] 서브모터
 
 ## 5일차 (24.05.21)
-- 라즈베리파이 IoT장비 설치  
-    [x] DHT11 센서  
-        - GND : GND 8개중 아무대나 연결  
-        - VCC : 5V 연결  
-        - S : GPI018 연결  
+- 라즈베리파이 IoT장비 설치
+    - [x] DHT11 센서
+        - GND : GND 8개중 아무대나 연결
+        - VCC : 5V 연결
+        - S : GPI018 연결
 
 ## 6, 7일차 (24.05.22~23)
-- 네트워크 대공사  
-    [x] 개인공유기, PC, 라즈베리파이
+- 네트워크 대공사
+    - [x] 개인공유기, PC, 라즈베리파이
 
 - 스마트홈 연동 클래스 미니프로젝트
     - 온습도 센서, RGB LED
@@ -101,9 +101,17 @@
     - OPC UA : Modbus통신의 불편한 점을 개선한 방식(아주 복잡)
     - **MQTT** : 가장 편리! AWS IoT, Azure IoT 클라우드 산업계표준으로 사용
 
-- MQTT 통신  
-    [x] Mosquitto Broker 설치
+- MQTT 통신
+    - [x] Mosquitto Broker 설치
         - mosquitto.conf : listener 1883 0.0.0.0, allow_anonymouse true
         - 방화벽 인바운드 열기
-    - RPi : paho-mqtt 패키지 설치, 송신(publisher)
-    - Win : MQTT.NET Nuget 패키지 설치, 수신(subcriber)
+    - [x] RPi : paho-mqtt 패키지 설치, 송신(publisher)
+    - [ ] Win : MQTT.NET Nuget 패키지 설치, 수신(subcriber)
+        - M2Mqtt : 가볍게 사용가능(업데이트x)
+        - MQTTNET : MS에서 개발, 무거움(최신까지 업데이트o)
+## 9일차
+- 스마트홈 연동 클래스 미니프로젝트
+    - [ ] WPF 수신 MQTT데이터 DB 저장
+    - [ ] MQTT데이터 실시간 모니터링
+    - [ ] MQTT RPi 제어(LED 제어)
+    - [ ] WPF MQTT데이터 히스토리 확인

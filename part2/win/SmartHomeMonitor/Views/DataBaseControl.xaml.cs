@@ -2,9 +2,11 @@
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Server;
+using Newtonsoft.Json;
 using SmartHomeMonitoringApp.Logics;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Linq;
 using System.Text;
@@ -99,10 +101,64 @@ namespace SmartHomeMonitoringApp.Views
         {
             var payload = Encoding.UTF8.GetString(args.ApplicationMessage.Payload);
             //Debug.WriteLine("MQTT 기본연결!");
-            Debug.WriteLine(payload);
-            UpdateLog(payload); //  스레드처리
+            //Debug.WriteLine(payload);
+            UpdateLog(payload); //  TextBox에 추가
+            InsertData(payload); // DB에 저장
 
             return Task.CompletedTask; // Async에서 Task값을 넘기려면 이렇게
+        }
+
+        private void InsertData(string payload)
+        {
+            this.Invoke(() =>
+            {
+                var currValue = JsonConvert.DeserializeObject<Dictionary<string, string>>(payload);
+
+                //Debug.WriteLine("InsertData : " + currValue["CURR_DT"]);
+                if (currValue != null)
+                {
+                    try
+                    {
+                        using(SqlConnection conn = new SqlConnection(TxtConnString.Text))
+                        {
+                            conn.Open();
+
+                            var insQuery = @"INSERT INTO [dbo].[SmartHomeData]
+                                                       ( [DEV_ID]
+                                                       , [CURR_DT]
+                                                       , [TEMP]
+                                                       , [HUMID])
+                                                  VALUES
+                                                       ( @DEV_ID
+                                                       , @CURR_DT
+                                                       , @TEMP
+                                                       , @HUMID)";
+
+                            SqlCommand cmd = new SqlCommand(insQuery, conn);
+                            cmd.Parameters.AddWithValue("@DEV_ID", currValue["DEV_ID"]);
+                            cmd.Parameters.AddWithValue("@CURR_DT", currValue["CURR_DT"]); // string --> DateTime 자동 변환됨
+                            //cmd.Parameters.AddWithValue("@TYPE", currValue["TYPE"]);
+
+                            var splitValue = currValue["VALUE"].Split('|'); // splitValue[0] = 온도, splitValue[1] = 습도
+                            cmd.Parameters.AddWithValue("@TEMP", splitValue[0]);
+                            cmd.Parameters.AddWithValue("@HUMID", splitValue[1]);
+
+                            if (cmd.ExecuteNonQuery() == 1)
+                            {
+                                UpdateLog(">>> DB Insert succeed");
+                            }
+                            else
+                            {
+                                UpdateLog(">>> DB Insert Failed");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        UpdateLog($"DB 에러 발생 : {ex.Message}");
+                    }
+                }
+            });
         }
 
         private void UpdateLog(string payload)

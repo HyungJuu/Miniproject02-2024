@@ -83,14 +83,14 @@ namespace SmartHomeMonitoringApp.Views
             {
                 Title = "Temp(℃)",
                 MarkerType = MarkerType.Circle,
-                Color = OxyColors.DarkOrange // 라인색 : 주황색
+                Color = OxyColors.IndianRed // 라인색 : 주황색
             };
 
             var humidSeries = new LineSeries
             {
                 Title = "Humidity(%)",
                 MarkerType = MarkerType.Square,
-                Color = OxyColors.Aqua // 습도 : 파란색
+                Color = OxyColors.CadetBlue // 습도 : 파란색
             };
 
             if (ds.Tables["SmartHomeData"].Rows.Count > 0)

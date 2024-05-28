@@ -1,5 +1,8 @@
 ﻿using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.VisualElements;
+using OxyPlot;
+using OxyPlot.Legends;
+using OxyPlot.Series;
 using SmartHomeMonitoringApp.Logics;
 using System;
 using System.Collections.Generic;
@@ -65,20 +68,48 @@ namespace SmartHomeMonitoringApp.Views
             //MessageBox.Show("TotalData", ds.Tables["SmartHomeData"].Rows.Count.ToString());
             LblTotalCount.Content = $"검색데이터 : {ds.Tables["SmartHomeData"].Rows.Count} 개";
 
-            var title = new LabelVisual
+            // Oxyplot 데이터 처리
+            var tmp = new PlotModel { Title = "SmartHome Visualization", DefaultFont = "NanumGothic" };
+            var legend = new Legend
             {
-                Text = "SmartHome Visualization",
-                TextSize = 16,
-                Padding = new LiveChartsCore.Drawing.Padding(15),
+                LegendBorder = OxyColors.DarkGray,
+                LegendBackground = OxyColor.FromArgb(150, 255, 255, 255),
+                LegendPosition = LegendPosition.TopRight,
+                LegendPlacement = LegendPlacement.Inside,
             };
-            ChtResult.Title = title;
+            tmp.Legends.Add(legend); // 범례추가
 
-            var series = new LineSeries<double> { Fill = null };
-            foreach (DataRow item in ds.Tables["SmartHomeData"].Rows)
+            var tempSeries = new LineSeries
             {
-                series.Values.Append(Convert.ToDouble(item[4]));
+                Title = "Temp(℃)",
+                MarkerType = MarkerType.Circle,
+                Color = OxyColors.DarkOrange // 라인색 : 주황색
+            };
+
+            var humidSeries = new LineSeries
+            {
+                Title = "Humidity(%)",
+                MarkerType = MarkerType.Square,
+                Color = OxyColors.Aqua // 습도 : 파란색
+            };
+
+            if (ds.Tables["SmartHomeData"].Rows.Count > 0)
+            {
+                var count = 0;
+                foreach (DataRow row in ds.Tables["SmartHomeData"].Rows)
+                {
+                    tempSeries.Points.Add(new DataPoint(count, Convert.ToDouble(row[3])));
+                    humidSeries.Points.Add(new DataPoint(count, Convert.ToDouble(row[4])));
+
+                    count++;
+                }
             }
-            ChtResult.Series = series;
+
+            tmp.Series.Add(tempSeries); // 온도값 시리즈 할당
+            tmp.Series.Add(humidSeries); // 습도값 시리즈 할당
+
+            // OxyPlot 차트에 할당
+            ChtResult.Model = tmp;
         }
     }
 }

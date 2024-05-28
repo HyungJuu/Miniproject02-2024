@@ -121,8 +121,14 @@
 - 스마트홈 연동 클래스 미니프로젝트 마무리
     - [x] WPF 수신 MQTT데이터 DB 저장
     - [x] MQTT데이터 실시간 모니터링 : 습도
-    - [ ] MQTT RPi 제어(LED 제어)
-    - [ ] WPF MQTT데이터 히스토리 확인
+    - [x] MQTT RPi 제어(LED 제어)
+    - [x] WPF MQTT데이터 히스토리 확인
+        - LiveChart2는 차후에 다시, 현재는 OxyPlot 차트 대체
+    - 실행결과
+
+    ![스마트홈1](https://raw.githubusercontent.com/HyungJuu/miniproject02-2024/main/images/mp002.png)
+    ![스마트홈2](https://raw.githubusercontent.com/HyungJuu/miniproject02-2024/main/images/mp003.png)
+    ![스마트홈3](https://raw.githubusercontent.com/HyungJuu/miniproject02-2024/main/images/mp004.png)
  
  - 조별 미니프로젝트 발표
     - 1~5조 

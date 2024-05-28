@@ -5,7 +5,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-    xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
     xmlns:oxy="http://oxyplot.org/wpf"
     xmlns:local="clr-namespace:SmartHomeMonitoringApp.Views"
     mc:Ignorable="d" 
@@ -46,6 +45,6 @@
                     Style="{StaticResource MahApps.Styles.Button.Square.Accent}" Click="BtnSearch_Click" />
         </Grid>
 
-        <lvc:CartesianChart Grid.Row="2" Grid.Column="0" x:Name="ChtResult" Margin="10" />
+        <oxy:PlotView Grid.Row="2" Grid.Column="0" x:Name="ChtResult" Margin="10" Background="#FAFAFA"></oxy:PlotView>
     </Grid>
 </UserControl>
